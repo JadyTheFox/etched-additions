@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="Jadyn"
+credits="Icon and logo based on Etched's disc texture and logo by Farcr (Etched is GPLv3)."
+logoFile="etched_additions.icon.png"
+description='''
+More control for Etched jukeboxes and boomboxes:
+- every jukebox (vanilla, Etched discs, minecart jukeboxes) loops forever
+- per-jukebox volume, hearing range and pause (sneak + right-click: empty hand = pause, stick = settings)
+- album jukeboxes get a Repeat One toggle next to Previous / Next
+- boombox track skip keys (default: N = next, B = previous)
+- works with Sound Physics Perfected: songs keep their echo and still loop / advance
+'''
+
+[[mixins]]
+config="${mod_id}.mixins.json"
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="etched"
+    type="required"
+    versionRange="[5.1.0,)"
+    ordering="AFTER"
+    side="BOTH"

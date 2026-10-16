@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "net.everwild.jukebox.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "mixins": [
+    "JukeboxSongPlayerMixin"
+  ],
+  "client": [
+    "client.LevelRendererAccess",
+    "client.SoundManagerAccess",
+    "client.SoundEngineAccess",
+    "client.SoundEngineMixin",
+    "client.SoundTrackerAccess",
+    "client.SoundTrackerMixin"
+  ],
+  "injectors": { "defaultRequire": 1 }
+}

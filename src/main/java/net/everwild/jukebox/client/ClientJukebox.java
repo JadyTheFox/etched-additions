@@ -108,9 +108,12 @@ public final class ClientJukebox {
         SoundEngine engine = engine();
         ChannelAccess.ChannelHandle handle = ((SoundEngineAccess) engine).everwild$instanceToChannel().get(sound);
         if (handle == null) return;
+        // Sound Physics copies: SPP sets their gain every tick to muffle the song through walls, so we
+        // must not overwrite it (our loudness still reaches them through calculateVolume). Only range/pause.
+        boolean spp = SppCompat.isCopy(sound);
         float volume = ((SoundEngineAccess) engine).everwild$calculateVolume(sound); // already includes our loudness
         handle.execute(ch -> {
-            ch.setVolume(volume);
+            if (!spp) ch.setVolume(volume);
             ch.linearAttenuation(s.range());
             if (s.paused()) ch.pause(); else ch.unpause();
         });

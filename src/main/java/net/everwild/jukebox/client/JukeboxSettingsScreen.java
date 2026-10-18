@@ -108,7 +108,7 @@ public class JukeboxSettingsScreen extends Screen {
     public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
         super.render(g, mouseX, mouseY, partialTick);
         g.drawCenteredString(this.font, this.title, this.width / 2, this.height / 2 - 84, 0xFFFFFF);
-        g.drawCenteredString(this.font, Component.literal("Range above 64 blocks isn't possible: the server only sends music that far."),
+        g.drawCenteredString(this.font, Component.literal("64 is vanilla. Up to 160 carries across big builds like arenas."),
                 this.width / 2, this.height / 2 + 48, 0x808080);
     }
 

@@ -51,9 +51,15 @@ public final class ClientJukebox {
     /** Settings for the jukebox a RECORDS sound is coming from, or null if it isn't a jukebox song. */
     @Nullable
     public static JukeboxSettings forSound(SoundInstance sound) {
-        if (SETTINGS.isEmpty() || sound.getSource() != SoundSource.RECORDS) return null;
+        if (sound.getSource() != SoundSource.RECORDS) return null;
         SoundInstance o = SppCompat.unwrap(sound);          // Sound Physics copies -> the jukebox's own sound
-        return SETTINGS.get(BlockPos.containing(o.getX(), o.getY(), o.getZ()));
+        BlockPos pos = BlockPos.containing(o.getX(), o.getY(), o.getZ());
+        JukeboxSettings s = SETTINGS.get(pos);
+        if (s != null) return s;
+        // untouched jukeboxes still get the full vanilla range: Etched streams album songs with a
+        // ~16 block falloff, so they faded out a few steps from the counter
+        Minecraft mc = Minecraft.getInstance();
+        return mc.level != null && JukeboxSettings.isSupported(mc.level.getBlockEntity(pos)) ? JukeboxSettings.DEFAULT : null;
     }
 
     // ------------------------------------------------------------ settings in / out

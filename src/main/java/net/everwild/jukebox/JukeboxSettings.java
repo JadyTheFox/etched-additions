@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
  * and mirrored to clients with {@link net.everwild.jukebox.network.SettingsSyncPacket}.
  *
  * @param volume    loudness 0..1
- * @param range     how far the music carries, in blocks (4..64; the server only sends music to players within 64)
+ * @param range     how far the music carries, in blocks (4..160; Etched Additions sends jukebox music to players within 160)
  * @param paused    paused in place
  * @param loop      replay when the song ends (vanilla jukebox + Etched discs)
  * @param repeatOne album jukebox: replay the same track instead of moving to the next one
@@ -23,8 +23,12 @@ import org.jetbrains.annotations.Nullable;
 public record JukeboxSettings(float volume, int range, boolean paused, boolean loop, boolean repeatOne) {
 
     public static final int MIN_RANGE = 4;
-    public static final int MAX_RANGE = 64;
-    public static final JukeboxSettings DEFAULT = new JukeboxSettings(1.0F, MAX_RANGE, false, true, false);
+    public static final int MAX_RANGE = 160;
+    /** Vanilla hearing range, still the default for a fresh jukebox. */
+    public static final int VANILLA_RANGE = 64;
+    /** How far the server announces jukebox songs (a bit past MAX_RANGE). */
+    public static final double BROADCAST_RANGE = 176.0;
+    public static final JukeboxSettings DEFAULT = new JukeboxSettings(1.0F, VANILLA_RANGE, false, true, false);
     private static final String KEY = "everwild_jukebox";
 
     public static final StreamCodec<ByteBuf, JukeboxSettings> STREAM_CODEC = StreamCodec.composite(
